@@ -32,34 +32,41 @@ if not os.path.exists("ImageNet_data_list/test"):
 	os.makedirs("ImageNet_data_list/test")
 
 DATA_DIR = options["data_dir"]
+# print(DATA_DIR)
 
 dir_list = sorted(glob.glob(DATA_DIR + "/train/*"))
+# print(dir_list)
 # max_list = 0
 # min_list = 1300
 
 for i, dir_name in enumerate(dir_list):
 	if i%50==0:
 		print(i)
-	filelist = sorted(glob.glob(dir_name + "/*"))
+	filelist = sorted(glob.glob(dir_name + "/images/*"))
+	# print(filelist)
 	random.shuffle(filelist)
 
 	# max_list = max(max_list, len(filelist))
 	# min_list = min(min_list, len(filelist))
 	with open("ImageNet_data_list/poison_generation/" + os.path.basename(dir_name) + ".txt", "w") as f:
 		for ctr in range(int(options["poison_generation"])):
-			f.write(filelist[ctr].split("/")[-2] + "/" + filelist[ctr].split("/")[-1] + "\n")
+			# print(filelist[ctr])
+			f.write(filelist[ctr].split("/")[-3] + "/" + filelist[ctr].split("/")[-2] + "/" + filelist[ctr].split("/")[-1] + "\n")
 	with open("ImageNet_data_list/finetune/" + os.path.basename(dir_name) + ".txt", "w") as f:
 		for ctr in range(int(options["poison_generation"]), len(filelist)):
-			f.write(filelist[ctr].split("/")[-2] + "/" + filelist[ctr].split("/")[-1] + "\n")
+			f.write(filelist[ctr].split("/")[-3] + "/" + filelist[ctr].split("/")[-2] + "/" + filelist[ctr].split("/")[-1] + "\n")
 
+# dir_list = sorted(glob.glob(DATA_DIR + "/val/images"))
 dir_list = sorted(glob.glob(DATA_DIR + "/val/*"))
+# print(dir_list)
 
 for i, dir_name in enumerate(dir_list):
 	if i%50==0:
 		print(i)
-	filelist = sorted(glob.glob(dir_name + "/*"))
+	filelist = sorted(glob.glob(dir_name + '/*'))
 	with open("ImageNet_data_list/test/" + os.path.basename(dir_name) + ".txt", "w") as f:
 		for ctr in range(int(options["test"])):
+			# print(filelist[ctr])
 			f.write(filelist[ctr].split("/")[-2] + "/" + filelist[ctr].split("/")[-1] + "\n")
 
 

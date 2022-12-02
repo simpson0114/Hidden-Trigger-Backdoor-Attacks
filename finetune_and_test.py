@@ -424,8 +424,10 @@ else:
 dataset_clean = LabeledDataset(clean_data_root + "/train",
 							   "data/{}/finetune_filelist.txt".format(experimentID), data_transforms)
 dataset_test = LabeledDataset(clean_data_root + "/val",
+# dataset_test = LabeledDataset(clean_data_root + "/train",
 							  "data/{}/test_filelist.txt".format(experimentID), data_transforms)
 dataset_patched = LabeledDataset(clean_data_root + "/val",
+# dataset_patched = LabeledDataset(clean_data_root + "/train",
 								 "data/{}/patched_filelist.txt".format(experimentID), data_transforms)
 dataset_poison = LabeledDataset(saveDir,
 								"data/{}/poison_filelist.txt".format(experimentID), data_transforms)
@@ -501,6 +503,8 @@ logging.info("Initializing Datasets and Dataloaders...")
 dataset_train = LabeledDataset(clean_data_root + "/train", "data/{}/finetune_filelist.txt".format(experimentID), data_transforms)
 dataset_test = LabeledDataset(clean_data_root + "/val", "data/{}/test_filelist.txt".format(experimentID), data_transforms)
 dataset_patched = LabeledDataset(clean_data_root + "/val", "data/{}/patched_filelist.txt".format(experimentID), data_transforms)
+# dataset_test = LabeledDataset(clean_data_root + "/train", "data/{}/test_filelist.txt".format(experimentID), data_transforms)
+# dataset_patched = LabeledDataset(clean_data_root + "/train", "data/{}/patched_filelist.txt".format(experimentID), data_transforms)
 
 dataloaders_dict = {}
 dataloaders_dict['train'] =  torch.utils.data.DataLoader(dataset_train, batch_size=batch_size,
